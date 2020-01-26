@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Location Map</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="tv_indicaciones">Introduce los datos de tu lugar de ensueños para realizar una busqueda del mismo</string>
+    <string name="tv_latitud">Latitud:</string>
+    <string name="tv_longitud">Longitud:</string>
+    <string name="tv_ver_localizacion">Ver localización</string>
+    <string name="btn_formulario">Visita tu luar ideal</string>
+
+    <string name="localizacion_seleccionada"> Su localización </string>
 </resources>
