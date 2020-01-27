@@ -5,11 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 
 import com.mapbox.mapboxsdk.Mapbox;
+import com.mapbox.mapboxsdk.annotations.Marker;
 import com.mapbox.mapboxsdk.annotations.MarkerOptions;
 import com.mapbox.mapboxsdk.camera.CameraPosition;
 import com.mapbox.mapboxsdk.geometry.LatLng;
@@ -29,6 +33,7 @@ public class MapActivity extends AppCompatActivity {
 
     private MapView mapView;
     private Button btn_lugar_ideal;
+    private MediaPlayer music;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,25 +52,41 @@ public class MapActivity extends AppCompatActivity {
                     @Override
                     public void onStyleLoaded(@NonNull Style style) {
 
+                        SharedPreferences preferencias = getPreferences(MODE_PRIVATE);
+                        float latitud = preferencias.getFloat("latitud",5);
+                        float longitud = preferencias.getFloat("latitud",5);
 
-                        if (getIntent().getExtras() != null){
-                            double latitud = Double.parseDouble(Objects.requireNonNull(getIntent().getStringExtra("latitud")));
-                            double longitud = Double.parseDouble(Objects.requireNonNull(getIntent().getStringExtra("longitud")));
+                        CameraPosition locationZoom = new CameraPosition
+                                .Builder()
+                                .target(new LatLng(latitud,longitud))
+                                .zoom(6)
+                                .build();
 
-                            CameraPosition locationZoom = new CameraPosition
-                                    .Builder()
-                                    .target(new LatLng(latitud,longitud))
-                                    .zoom(6)
-                                    .build();
+                        MarkerOptions location = new MarkerOptions()
+                                .position(new LatLng(latitud, longitud))
+                                .title(getString(R.string.localizacion_seleccionada));
 
-                            MarkerOptions location = new MarkerOptions()
-                                    .position(new LatLng(latitud, longitud))
-                                    .title(getString(R.string.localizacion_seleccionada));
+                        mapboxMap.addMarker(location);
+                        mapboxMap.setCameraPosition(locationZoom);
 
-                            mapboxMap.addMarker(location);
-                            mapboxMap.setCameraPosition(locationZoom);
+                        mapboxMap.setOnMarkerClickListener(new MapboxMap.OnMarkerClickListener() {
+                            @Override
+                            public boolean onMarkerClick(@NonNull Marker marker) {
+                                music = MediaPlayer.create(MapActivity.this, R.raw.misc021);
+                                music.start();
 
-                        }
+                                Handler handler = new Handler();
+                                handler.postDelayed(new Runnable() {
+                                    public void run() {
+                                        // acciones que se ejecutan tras los milisegundos
+                                        music.stop();
+                                        Intent verSitio = new Intent(MapActivity.this,LugarActivity.class);
+                                        startActivity(verSitio);
+                                    }
+                                }, 2000);
+                                return false;
+                            }
+                        });
 
                     }
                 });
@@ -118,6 +139,7 @@ public class MapActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        music.stop();
         mapView.onDestroy();
     }
 

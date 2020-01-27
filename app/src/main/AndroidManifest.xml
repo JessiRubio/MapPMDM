@@ -3,6 +3,8 @@
     package="com.mappmdm">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
         android:allowBackup="true"
@@ -11,14 +13,18 @@
         android:roundIcon="@drawable/icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".FormularioActivity"></activity>
-        <activity android:name=".MapActivity">
+        <activity android:name=".InicioActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".LugarActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".FormularioActivity" />
+        <activity android:name=".MapActivity"/>
     </application>
 
 </manifest>

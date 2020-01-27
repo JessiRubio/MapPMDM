@@ -2,7 +2,9 @@ package com.mappmdm;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -32,13 +34,23 @@ public class FormularioActivity extends AppCompatActivity {
         et_longitud = findViewById(R.id.et_longitud);
         btn_ver_localizacion = findViewById(R.id.btn_ver_localizacion);
 
+        SharedPreferences preferences = getPreferences(Context.MODE_PRIVATE);
+        final SharedPreferences.Editor editor = preferences.edit();
+
+
         btn_ver_localizacion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent cargarPunto = new Intent(FormularioActivity.this,MapActivity.class);
-                cargarPunto.putExtra("latitud", Double.parseDouble(String.valueOf(et_latitud.getText())));
-                cargarPunto.putExtra("longitud",Double.parseDouble(String.valueOf(et_longitud.getText())));
-                startActivity(cargarPunto);
+
+                if(et_latitud.getText()!=null && et_longitud.getText()!=null){
+                    editor.putFloat("latitud",Float.parseFloat(String.valueOf(et_latitud.getText())));
+                    editor.putFloat("longitud", Float.parseFloat(String.valueOf(et_longitud.getText())));
+                    editor.commit();
+                    startActivity(cargarPunto);
+                }
+
+
             }
         });
     }
