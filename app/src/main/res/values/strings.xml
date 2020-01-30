@@ -2,21 +2,25 @@
     <string name="app_name">Location Map</string>
 
     <!-- TODO: Remove or change this placeholder text -->
+    <!-- ****************************** Strings del formulario ********************************* -->
     <string name="tv_indicaciones">Introduce los datos de tu lugar de ensueños para realizar una busqueda del mismo</string>
+    <string name="tv_nombre_lugar">Nombre lugar a Buscar:</string>
     <string name="tv_latitud">Latitud:</string>
     <string name="tv_longitud">Longitud:</string>
     <string name="tv_ver_localizacion">Ver localización</string>
+
+    <!-- ******************************* Strings del mapa ************************************* -->
     <string name="btn_formulario">Visita tu lugar ideal</string>
 
-    <string name="localizacion_seleccionada"> Su localización </string>
-    <string name="todo">TODO</string>
 
+
+    <!-- ******************************** Strings información Lugar **************************** -->
     <string name="texto1">Parque Europa desde el este</string>
     <string name="texto2">Parque Europa desde el sudeste</string>
     <string name="texto3">Parque Europa desde el sur</string>
     <string name="texto4">Parque Europa, rotonda</string>
     <string name="texto5">El insituto, fuente de gozo</string>
     <string name="texto6">Arbustos grandes</string>
-
+    <string name="todo">TODO</string>
 
 </resources>

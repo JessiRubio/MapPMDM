@@ -35,6 +35,7 @@ public class MapActivity extends AppCompatActivity {
     private Button btn_lugar_ideal;
     private MediaPlayer music;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,9 +53,14 @@ public class MapActivity extends AppCompatActivity {
                     @Override
                     public void onStyleLoaded(@NonNull Style style) {
 
-                        SharedPreferences preferencias = getPreferences(MODE_PRIVATE);
-                        float latitud = preferencias.getFloat("latitud",5);
-                        float longitud = preferencias.getFloat("latitud",5);
+                        Intent datoEntrada = getIntent();
+                        String nombreLugar = datoEntrada.getStringExtra("nombreLugar");
+                        Double latitud = datoEntrada.getDoubleExtra("latitud",43);
+                        Double longitud = datoEntrada.getDoubleExtra("longitud",-8);
+
+                       /*SharedPreferences preferencias = getPreferences(MODE_PRIVATE);
+                        Double latitud = preferencias.getFloat("latitud",5);
+                        Double longitud = preferencias.getFloat("latitud",5);*/
 
                         CameraPosition locationZoom = new CameraPosition
                                 .Builder()
@@ -64,7 +70,7 @@ public class MapActivity extends AppCompatActivity {
 
                         MarkerOptions location = new MarkerOptions()
                                 .position(new LatLng(latitud, longitud))
-                                .title(getString(R.string.localizacion_seleccionada));
+                                .title(nombreLugar);
 
                         mapboxMap.addMarker(location);
                         mapboxMap.setCameraPosition(locationZoom);
@@ -139,7 +145,13 @@ public class MapActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        music.stop();
+        try{
+            music.stop();
+        }
+        catch (Exception e){
+
+        }
+
         mapView.onDestroy();
     }
 

@@ -8,11 +8,15 @@ import android.os.Handler;
 
 public class InicioActivity extends AppCompatActivity {
 
+    /**---------------------------- Activity de la pantalla inicial -------------------------------
+     * Esta pantalla simplemente es estetica, no tiene funcionalidad alguna. Por ello, solo consta
+     * de un delay de 3 segundos antes de pasar a la pantalla principal, el mapa.**/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inicio);
 
+        //Delay de 3 segundos antes de hacer el cambio de pantalla
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {

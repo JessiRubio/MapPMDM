@@ -12,25 +12,34 @@ import java.util.Stack;
 
 public class LugarActivity extends AppCompatActivity {
 
+    /**------------------------------- Pantalla lugar seleccionado ---------------------------------
+     * Es la pantalla que se muestra despues de hacer click en la ubicación configurada previamente
+     * y que muestra la información de dicho lugar.
+     * En nuestro caso, la información se mostrara de forma random.**/
+
+    /*Declaramos los objetos necesarios*/
     private ImageView icono;
     private TextView descripcion;
-
-    private static ArrayList<String> listaImagenes;
-    private static ArrayList<String> listaTextos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lugar);
+
+        //Inicializamos
         icono = findViewById(R.id.iconoLugar);
         descripcion = findViewById(R.id.desc_lugar);
 
+        //Creamos un numero que se carga de forma random
         int lugarAleatorio = lugarRandom();
+        //Cargamos la información segun el numero conseguido anteriormente
         cargarInformacion(lugarAleatorio);
 
 
     }
 
+    /*Este metodo tras recibir un numero cargara la información segun el valor de este en los
+    * objetos declarados e inicializados en la parte superior*/
     private void cargarInformacion(int lugar) {
         switch (lugar){
             case 0:
@@ -60,6 +69,7 @@ public class LugarActivity extends AppCompatActivity {
         }
     }
 
+    /* Este metodo devuele un numero entero entre 0 y 6 ambos incluidos de forma aleatoria*/
     private int lugarRandom(){
         int random;
         int nOpciones = 6;
